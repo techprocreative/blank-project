@@ -14,7 +14,7 @@ type MarketSentiment = {
   note: string;
 };
 
-const mockUnusual: UnusualStock[] = [
+const fallbackUnusual: UnusualStock[] = [
   {
     stock_code: "BBRI",
     label: "ZP akumulasi Rp 80M",
@@ -35,16 +35,19 @@ const mockUnusual: UnusualStock[] = [
   }
 ];
 
-const mockSentiment: MarketSentiment = {
+const fallbackSentiment: MarketSentiment = {
   market_mood: "bullish",
   note: "Bandar institusi mulai masuk di banking, tapi ritel masih jualan. Classic accumulation pattern."
 };
 
 export default function ProactiveDashboard() {
-  const [sentiment] = useState<MarketSentiment | null>(mockSentiment);
-  const [unusual] = useState<UnusualStock[]>(mockUnusual);
+  const [sentiment] = useState<MarketSentiment | null>(fallbackSentiment);
+  const [unusual] = useState<UnusualStock[]>(fallbackUnusual);
 
-  // TODO: Wire to Supabase API once miner is feeding data.
+  // NOTE:
+  // Saat Supabase sudah siap dan environment variable di-set,
+  // kita bisa ganti komponen ini untuk fetch ke API route
+  // yang membaca data dari Supabase (market_sentiment_daily, stock_snapshots).
   useEffect(() => {
     // placeholder for future data fetching
   }, []);
